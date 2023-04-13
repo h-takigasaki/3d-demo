@@ -27,18 +27,6 @@ const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 cube.position.set(7, 0.5, 8);
 scene.add(cube);
 
-// アニメーションループ内で立方体を回転させる
-const animate = () => {
-  requestAnimationFrame(animate);
-
-  // 立方体の回転
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-
-  renderer.render(scene, camera);
-};
-
-
 // Raycasterの作成
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
@@ -56,10 +44,14 @@ renderer.domElement.addEventListener("click", (event) => {
 
   // オブジェクトとの交差判定
   const intersects = raycaster.intersectObjects([redSphere]);
+  const intersects2 = raycaster.intersectObjects([cube]);
 
   // 交差している場合
   if (intersects.length > 0) {
-    alert("success");
+    alert("球");
+  }
+  if (intersects2.length > 0) {
+    alert("立方体");
   }
 });
 
@@ -119,6 +111,11 @@ const turnRight = () => {
 
 const animate = () => {
   requestAnimationFrame(animate);
+
+  // 立方体の回転
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
+
   renderer.render(scene, camera);
 };
 
