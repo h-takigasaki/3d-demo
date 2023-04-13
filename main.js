@@ -18,6 +18,26 @@ new THREE.SphereGeometry(0.5, 32, 32),
 new THREE.MeshPhongMaterial({ color: 0xff0000 })
 );
 
+// 立方体のジオメトリとマテリアルの作成
+const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+const cubeMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
+
+// 立方体のメッシュを作成し、7行目8列目の地点に配置
+const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+cube.position.set(7, 0.5, 8);
+scene.add(cube);
+
+// アニメーションループ内で立方体を回転させる
+const animate = () => {
+  requestAnimationFrame(animate);
+
+  // 立方体の回転
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.01;
+
+  renderer.render(scene, camera);
+};
+
 
 // Raycasterの作成
 const raycaster = new THREE.Raycaster();
