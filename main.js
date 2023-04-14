@@ -139,6 +139,44 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+// テクスチャローダーの作成
+const textureLoader2 = new THREE.TextureLoader();
+
+// デプスマップ画像と元の画像をテクスチャとして読み込む
+const depthTexture = textureLoader2.load("textures/depthmap.png");
+const originalTexture = textureLoader2.load("textures/original_image.png");
+
+// PlaneGeometry のサイズとセグメント数を設定
+const width = 10;
+const height = 10;
+const widthSegments = 128;
+const heightSegments = 128;
+
+// PlaneGeometry を作成
+const geometry = new THREE.PlaneGeometry(width, height, widthSegments, heightSegments);
+
+// デプスマップ画像を使用して頂点の高さを調整
+geometry.vertices.forEach((vertex, i) => {
+  // デプスマップの値を取得 (0.0 - 1.0 の範囲)
+  const depthValue = depthTexture.image.data[i * 4] / 255;
+
+  // 頂点の高さをデプスマップの値に基づいて調整
+  vertex.z = depthValue * 1; // 1 は高さの最大値を表します。必要に応じて調整してください。
+});
+
+// マテリアルを作成し、元の画像をテクスチャとして適用
+const material = new THREE.MeshStandardMaterial({ map: originalTexture });
+
+// メッシュを作成
+const mesh = new THREE.Mesh(geometry, material);
+
+// シーンにメッシュを追加
+scene.add(mesh);
+
+// メッシュの位置を調整
+mesh.position.set(5, 1, 5);
+
+
 const hammer = new Hammer(renderer.domElement);
 hammer.get("swipe").set({ direction: Hammer.DIRECTION_ALL });
 
