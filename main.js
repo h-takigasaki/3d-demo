@@ -47,12 +47,12 @@ renderer.domElement.addEventListener("click", (event) => {
   const intersects2 = raycaster.intersectObjects([cube]);
 
   // 交差している場合
-  if (intersects.length > 0) {
-    alert("球");
-  }
-  if (intersects2.length > 0) {
-    alert("立方体");
-  }
+  // if (intersects.length > 0) {
+  //   alert("球");
+  // }
+  // if (intersects2.length > 0) {
+  //   alert("立方体");
+  // }
 });
 
 // テクスチャの読み込み
